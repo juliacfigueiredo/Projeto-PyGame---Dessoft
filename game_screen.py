@@ -2,6 +2,9 @@ import pygame
 from config import FPS, GAME_OVER, WIDTH, HEIGHT, BLACK, YELLOW, RED, QUIT
 from assets import load_assets, DESTROY_SOUND, BOOM_SOUND, BACKGROUND, SCORE_FONT
 from sprites import Ship, Meteor, Explosion
+from init_screen import init_screen
+
+window = pygame.display.set_mode((WIDTH, HEIGHT))
 
 
 def game_screen(window):
@@ -135,3 +138,4 @@ def game_screen(window):
         pygame.display.update()  # Mostra o novo frame para o jogador
 
     return GAME_OVER
+    return init_screen(window)
