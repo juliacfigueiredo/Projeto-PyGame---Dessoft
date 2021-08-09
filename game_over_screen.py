@@ -3,19 +3,20 @@ import pygame
 from os import path
 
 from config import IMG_DIR, BLACK, FPS, GAME, QUIT, WIDTH,HEIGHT
-#from game_screen import score, window 
-#from assets import load_assets, DESTROY_SOUND, BOOM_SOUND, BACKGROUND, SCORE_FONT
+from assets import load_assets
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
 
-def game_over_screen(screen):
+def game_over_screen(screen, score):
     # Variável para o ajuste de velocidade
     clock = pygame.time.Clock()
 
     # Carrega o fundo da tela inicial
     background = pygame.image.load(path.join(IMG_DIR, 'final.jpg')).convert()
     background_rect = background.get_rect()
+
+    assets = load_assets()
 
     running = True
     while running:
@@ -39,10 +40,10 @@ def game_over_screen(screen):
         screen.blit(background, background_rect)
 
         # Desenhando o score
-        #text_surface = assets['score_font'].render("{:08d}".format(score), True, (255, 255, 0))
-        #text_rect = text_surface.get_rect()
-        #text_rect.midtop = (WIDTH / 2,  10)
-        #window.blit(text_surface, text_rect)
+        text_surface = assets['score_font'].render("{:08d}".format(score), True, (255, 255, 0))
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (WIDTH / 2,  10)
+        window.blit(text_surface, text_rect)
 
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
