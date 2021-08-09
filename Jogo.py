@@ -19,10 +19,10 @@ while state != QUIT:
     if state == INIT:
         state = init_screen(window)
     elif state == GAME:
-        state = game_screen(window)
+        state, score = game_screen(window)
     elif state == GAME_OVER:
    
-        state = game_over_screen(window)
+        state = game_over_screen(window, score)
     else:
         state = QUIT
 

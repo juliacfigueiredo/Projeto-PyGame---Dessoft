@@ -23,8 +23,11 @@ def game_screen(window):
     groups['all_bullets'] = all_bullets
 
     # Criando o jogador
-    player = Ship(groups, assets)
-    all_sprites.add(player)
+    player1 = Ship(groups, assets)
+    all_sprites.add(player1)
+    player2 = Ship(groups, assets)
+    all_sprites.add(player2)
+
     # Criando os meteoros
     for i in range(8):
         meteor = Meteor(assets)
@@ -57,19 +60,32 @@ def game_screen(window):
                     # Dependendo da tecla, altera a velocidade.
                     keys_down[event.key] = True
                     if event.key == pygame.K_LEFT:
-                        player.speedx -= 8
+                        player1.speedx -= 8
+                    if event.key == ord('a'):
+                        player2.speedx -= 8
                     if event.key == pygame.K_RIGHT:
-                        player.speedx += 8
+                        player1.speedx += 8
+                    if event.key == ord('d'):
+                        player2.speedx += 8
                     if event.key == pygame.K_SPACE:
-                        player.shoot()
+                        player1.shoot()
+                    if event.key == ord('w'):
+                        player2.shoot()
                 # Verifica se soltou alguma tecla.
                 if event.type == pygame.KEYUP:
                     # Dependendo da tecla, altera a velocidade.
                     if event.key in keys_down and keys_down[event.key]:
                         if event.key == pygame.K_LEFT:
-                            player.speedx += 8
+                            player1.speedx += 8
+                        if event.key == ord('a'):
+                            player2.speedx -= 8
                         if event.key == pygame.K_RIGHT:
-                            player.speedx -= 8
+                            player1.speedx -= 8
+                        if event.key == ord('d'):
+                            player2.speedx -= 8
+                        if event.key == ord('d'):
+                            player2.speedx -= 8
+
 
         # ----- Atualiza estado do jogo
         # Atualizando a posição dos meteoros
@@ -95,13 +111,13 @@ def game_screen(window):
                     lives += 1
 
             # Verifica se houve colisão entre nave e meteoro
-            hits = pygame.sprite.spritecollide(player, all_meteors, True, pygame.sprite.collide_mask)
+            hits = pygame.sprite.spritecollide(player1, all_meteors, True, pygame.sprite.collide_mask)
             if len(hits) > 0:
                 # Toca o som da colisão
                 assets[BOOM_SOUND].play()
-                player.kill()
+                player1.kill()
                 lives -= 1
-                explosao = Explosion(player.rect.center, assets)
+                explosao = Explosion(player1.rect.center, assets)
                 all_sprites.add(explosao)
                 state = EXPLODING
                 keys_down = {}
@@ -114,8 +130,30 @@ def game_screen(window):
                     state = DONE
                 else:
                     state = PLAYING
-                    player = Ship(groups, assets)
-                    all_sprites.add(player)
+                    player1 = Ship(groups, assets)
+                    all_sprites.add(player1)
+
+            hits = pygame.sprite.spritecollide(player2, all_meteors, True, pygame.sprite.collide_mask)
+            if len(hits) > 0:
+                # Toca o som da colisão
+                assets[BOOM_SOUND].play()
+                player2.kill()
+                lives -= 1
+                explosao = Explosion(player2.rect.center, assets)
+                all_sprites.add(explosao)
+                state = EXPLODING
+                keys_down = {}
+                explosion_tick = pygame.time.get_ticks()
+                explosion_duration = explosao.frame_ticks * len(explosao.explosion_anim) + 400
+        elif state == EXPLODING:
+            now = pygame.time.get_ticks()
+            if now - explosion_tick > explosion_duration:
+                if lives == 0:
+                    state = DONE
+                else:
+                    state = PLAYING
+                    player2 = Ship(groups, assets)
+                    all_sprites.add(player2)
 
         # ----- Gera saídas
         window.fill(BLACK)  # Preenche com a cor branca
@@ -137,5 +175,4 @@ def game_screen(window):
 
         pygame.display.update()  # Mostra o novo frame para o jogador
 
-    return GAME_OVER
-    return init_screen(window)
+    return GAME_OVER, score
