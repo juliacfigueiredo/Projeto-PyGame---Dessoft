@@ -31,7 +31,7 @@ def game_over_screen(screen, score):
                 state = QUIT
                 running = False
 
-            if event.type == pygame.KEYUP:
+            if event.type == pygame.KEYDOWN:
                 state = GAME
                 running = False
 
@@ -48,4 +48,4 @@ def game_over_screen(screen, score):
         # Depois de desenhar tudo, inverte o display.
         pygame.display.flip()
 
-    return init_screen(window)
+    return state

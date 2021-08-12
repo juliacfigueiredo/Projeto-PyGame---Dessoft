@@ -123,9 +123,7 @@ def game_screen(window):
                 keys_down = {}
                 explosion_tick = pygame.time.get_ticks()
                 explosion_duration = explosao.frame_ticks * len(explosao.explosion_anim) + 400
-        elif state == EXPLODING:
-            now = pygame.time.get_ticks()
-            if now - explosion_tick > explosion_duration:
+    
                 if lives == 0:
                     state = DONE
                 else:
@@ -143,11 +141,7 @@ def game_screen(window):
                 all_sprites.add(explosao)
                 state = EXPLODING
                 keys_down = {}
-                explosion_tick = pygame.time.get_ticks()
-                explosion_duration = explosao.frame_ticks * len(explosao.explosion_anim) + 400
-        elif state == EXPLODING:
-            now = pygame.time.get_ticks()
-            if now - explosion_tick > explosion_duration:
+                
                 if lives == 0:
                     state = DONE
                 else:
