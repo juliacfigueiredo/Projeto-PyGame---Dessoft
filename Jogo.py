@@ -34,4 +34,3 @@ pygame.display.set_caption('Navinha')
 
 # ===== Finalização =====
 pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
-

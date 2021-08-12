@@ -2,7 +2,6 @@ import pygame
 from config import FPS, GAME_OVER, WIDTH, HEIGHT, BLACK, YELLOW, RED, QUIT
 from assets import load_assets, DESTROY_SOUND, BOOM_SOUND, BACKGROUND, SCORE_FONT
 from sprites import Ship, Meteor, Explosion
-from init_screen import init_screen
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
@@ -67,9 +66,17 @@ def game_screen(window):
                         player1.speedx += 8
                     if event.key == ord('d'):
                         player2.speedx += 8
+                    if event.key == pygame.K_UP:
+                        player1.speedy -= 8
+                    if event.key == ord('w'):
+                        player2.speedy -= 8
+                    if event.key == pygame.K_DOWN:
+                        player1.speedy += 8
+                    if event.key == ord('s'):
+                        player2.speedy += 8
                     if event.key == pygame.K_SPACE:
                         player1.shoot()
-                    if event.key == ord('w'):
+                    if event.key == ord('g'):
                         player2.shoot()
                 # Verifica se soltou alguma tecla.
                 if event.type == pygame.KEYUP:
@@ -83,8 +90,14 @@ def game_screen(window):
                             player1.speedx -= 8
                         if event.key == ord('d'):
                             player2.speedx -= 8
-                        if event.key == ord('d'):
-                            player2.speedx -= 8
+                        if event.key == pygame.K_UP:
+                            player1.speedy += 8
+                        if event.key == ord('w'):
+                            player2.speedy += 8
+                        if event.key == pygame.K_DOWN:
+                            player1.speedy -= 8
+                        if event.key == ord('s'):
+                            player2.speedy -= 8
 
 
         # ----- Atualiza estado do jogo

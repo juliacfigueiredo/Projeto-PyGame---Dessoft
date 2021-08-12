@@ -1,4 +1,3 @@
-from init_screen import init_screen
 import pygame
 from os import path
 
