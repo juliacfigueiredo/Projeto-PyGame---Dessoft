@@ -4,5 +4,6 @@ O código presente nesse proctório consiste no jogo "Pega fogo neles", o qual t
 A partir do jogo existente foram implementadas 4 novas funcionalidades, sendo essas: 
 - Tela de game over mostrando a pontuação;
 - Tela de instruções, que mostra o que cada tecla faz;
-- Um segundo jogador que pode ser controlado pelas teclas W, A, D;
+- Um segundo jogador que pode ser controlado pelas teclas W, A, D, S, G;
 - Reiniciar o jogo (inclusive a pontuação e vidas) quando o jogador apertar qualquer tecla na tela de game over;
+- Permitir movimento vertical (eixo y) da nave;
