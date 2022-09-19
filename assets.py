@@ -5,8 +5,6 @@ from config import METEOR_WIDTH, METEOR_HEIGHT, SHIP_WIDTH, SHIP_HEIGHT, IMG_DIR
 
 BACKGROUND = 'background'
 METEOR_IMG = 'meteor_img'
-METEOR_IMG = 'meteor_img'
-SHIP_IMG = 'ship_img'
 SHIP_IMG = 'ship_img'
 BULLET_IMG = 'bullet_img'
 EXPLOSION_ANIM = 'explosion_anim'

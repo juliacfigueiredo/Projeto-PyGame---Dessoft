@@ -5,6 +5,48 @@ from sprites import Ship, Meteor, Explosion
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
+def click_down(event, player1, player2, keys_down):
+    # Dependendo da tecla, altera a velocidade.
+    keys_down[event.key] = True
+    if event.key == pygame.K_LEFT:
+        player1.speedx -= 8
+    if event.key == ord('a'):
+        player2.speedx -= 8
+    if event.key == pygame.K_RIGHT:
+        player1.speedx += 8
+    if event.key == ord('d'):
+        player2.speedx += 8
+    if event.key == pygame.K_UP:
+        player1.speedy -= 8
+    if event.key == ord('w'):
+        player2.speedy -= 8
+    if event.key == pygame.K_DOWN:
+        player1.speedy += 8
+    if event.key == ord('s'):
+        player2.speedy += 8
+    if event.key == pygame.K_SPACE:
+        player1.shoot()
+    if event.key == ord('g'):
+        player2.shoot()
+
+def click_up(event, player1, player2, keys_down):
+    # Dependendo da tecla, altera a velocidade.
+    if event.key == pygame.K_LEFT:
+        player1.speedx += 8
+    if event.key == ord('a'):
+        player2.speedx -= 8
+    if event.key == pygame.K_RIGHT:
+        player1.speedx -= 8
+    if event.key == ord('d'):
+        player2.speedx -= 8
+    if event.key == pygame.K_UP:
+        player1.speedy += 8
+    if event.key == ord('w'):
+        player2.speedy += 8
+    if event.key == pygame.K_DOWN:
+        player1.speedy -= 8
+    if event.key == ord('s'):
+        player2.speedy -= 8
 
 def game_screen(window):
     # Variável para o ajuste de velocidade
@@ -56,48 +98,11 @@ def game_screen(window):
             if state == PLAYING:
                 # Verifica se apertou alguma tecla.
                 if event.type == pygame.KEYDOWN:
-                    # Dependendo da tecla, altera a velocidade.
-                    keys_down[event.key] = True
-                    if event.key == pygame.K_LEFT:
-                        player1.speedx -= 8
-                    if event.key == ord('a'):
-                        player2.speedx -= 8
-                    if event.key == pygame.K_RIGHT:
-                        player1.speedx += 8
-                    if event.key == ord('d'):
-                        player2.speedx += 8
-                    if event.key == pygame.K_UP:
-                        player1.speedy -= 8
-                    if event.key == ord('w'):
-                        player2.speedy -= 8
-                    if event.key == pygame.K_DOWN:
-                        player1.speedy += 8
-                    if event.key == ord('s'):
-                        player2.speedy += 8
-                    if event.key == pygame.K_SPACE:
-                        player1.shoot()
-                    if event.key == ord('g'):
-                        player2.shoot()
+                    click_down(event, player1, player2, keys_down)
                 # Verifica se soltou alguma tecla.
                 if event.type == pygame.KEYUP:
-                    # Dependendo da tecla, altera a velocidade.
                     if event.key in keys_down and keys_down[event.key]:
-                        if event.key == pygame.K_LEFT:
-                            player1.speedx += 8
-                        if event.key == ord('a'):
-                            player2.speedx -= 8
-                        if event.key == pygame.K_RIGHT:
-                            player1.speedx -= 8
-                        if event.key == ord('d'):
-                            player2.speedx -= 8
-                        if event.key == pygame.K_UP:
-                            player1.speedy += 8
-                        if event.key == ord('w'):
-                            player2.speedy += 8
-                        if event.key == pygame.K_DOWN:
-                            player1.speedy -= 8
-                        if event.key == ord('s'):
-                            player2.speedy -= 8
+                        click_up(event, player1, player2, keys_down)
 
 
         # ----- Atualiza estado do jogo
@@ -134,9 +139,7 @@ def game_screen(window):
                 all_sprites.add(explosao)
                 state = EXPLODING
                 keys_down = {}
-                explosion_tick = pygame.time.get_ticks()
-                explosion_duration = explosao.frame_ticks * len(explosao.explosion_anim) + 400
-    
+                
                 if lives == 0:
                     state = DONE
                 else:
