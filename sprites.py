@@ -23,12 +23,7 @@ class Ship(pygame.sprite.Sprite):
         self.last_shot = pygame.time.get_ticks()
         self.shoot_ticks = 500
 
-    def update(self):
-        # Atualização da posição da nave
-        self.rect.x += self.speedx
-        self.rect.y += self.speedy
-
-        # Mantem dentro da tela
+    def boundary_condition(self):
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
         if self.rect.left < 0:
@@ -37,6 +32,14 @@ class Ship(pygame.sprite.Sprite):
              self.rect.bottom = HEIGHT
         if self.rect.top < 0:
              self.rect.top = 0
+
+    def update(self):
+        # Atualização da posição da nave
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
+
+        # Mantem dentro da tela
+        self.boundary_condition()
 
     def shoot(self):
         # Verifica se pode atirar
